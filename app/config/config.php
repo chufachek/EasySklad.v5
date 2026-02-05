@@ -2,16 +2,16 @@
 return array(
     'db' => array(
         'host' => 'localhost',
-        'dbname' => 'easysklad',
-        'user' => 'root',
-        'pass' => '',
+        'dbname' => 'chufacoq_1',
+        'user' => 'chufacoq_1',
+        'pass' => 'Qwerty228;',
         'charset' => 'utf8',
     ),
     'smtp' => array(
-        'host' => 'smtp.example.com',
-        'port' => 587,
-        'user' => 'user@example.com',
-        'pass' => 'password',
+        'host' => 'smtp.mail.ru',
+        'port' => 465,
+        'user' => 'kolich56@bk.ru',
+        'pass' => 'Sgdr1zkugoDIvfkiMZOz',
         'from_email' => 'no-reply@example.com',
         'from_name' => 'EasyСклад',
         'encryption' => 'tls',
