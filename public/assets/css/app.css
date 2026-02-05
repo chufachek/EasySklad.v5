@@ -1,0 +1,99 @@
+:root {
+    --bg-color: #f5f7fb;
+    --card-bg: #ffffff;
+    --text-color: #1d1d1f;
+    --muted-color: #6c757d;
+    --accent-color: #21a038;
+    --border-radius: 16px;
+    --shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] {
+    --bg-color: #0f1115;
+    --card-bg: #1a1f27;
+    --text-color: #f8f9fa;
+    --muted-color: #adb5bd;
+    --accent-color: #2ecc71;
+    --shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+body.app-body {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.topbar {
+    background: var(--accent-color);
+    color: #fff;
+    box-shadow: var(--shadow);
+}
+
+.topbar .navbar-brand {
+    color: #fff;
+}
+
+.sidebar {
+    min-height: calc(100vh - 56px);
+    padding: 20px 10px;
+    background: var(--card-bg);
+    border-right: 1px solid rgba(0,0,0,0.05);
+}
+
+.content-area {
+    padding: 20px;
+}
+
+.card {
+    border-radius: var(--border-radius);
+    border: none;
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+}
+
+.table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.auth-wrapper {
+    min-height: calc(100vh - 56px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 520px;
+}
+
+.btn-success {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.btn-outline-success {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.list-group-item {
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 6px;
+}
+
+.list-group-item:hover {
+    background: rgba(33, 160, 56, 0.1);
+}
+
+.pos-table input, .pos-table select {
+    min-width: 100px;
+}
+
+.pos-totals {
+    margin-top: 16px;
+    text-align: right;
+    font-weight: 600;
+}
