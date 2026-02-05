@@ -1,5 +1,12 @@
 <?php
-$config = require __DIR__ . '/../app/config/config.php';
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(E_ALL);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/../storage/logs/php_errors.log');
+
+$rootDir = dirname(__DIR__);
+$config = require $rootDir . '/app/config/config.php';
 
 session_name($config['session']['name']);
 session_set_cookie_params(
@@ -11,38 +18,47 @@ session_set_cookie_params(
 );
 session_start();
 
-require_once __DIR__ . '/../app/core/helpers.php';
-require_once __DIR__ . '/../app/core/db.php';
-require_once __DIR__ . '/../app/core/auth.php';
-require_once __DIR__ . '/../app/core/csrf.php';
-require_once __DIR__ . '/../app/core/mailer.php';
-require_once __DIR__ . '/../app/core/rate_limit.php';
+require_once $rootDir . '/app/core/helpers.php';
+require_once $rootDir . '/app/core/db.php';
+require_once $rootDir . '/app/core/auth.php';
+require_once $rootDir . '/app/core/csrf.php';
+require_once $rootDir . '/app/core/mailer.php';
+require_once $rootDir . '/app/core/rate_limit.php';
 
-require_once __DIR__ . '/../app/models/User.php';
-require_once __DIR__ . '/../app/models/Company.php';
-require_once __DIR__ . '/../app/models/Warehouse.php';
-require_once __DIR__ . '/../app/models/Product.php';
-require_once __DIR__ . '/../app/models/Document.php';
+require_once $rootDir . '/app/models/User.php';
+require_once $rootDir . '/app/models/Company.php';
+require_once $rootDir . '/app/models/Warehouse.php';
+require_once $rootDir . '/app/models/Product.php';
+require_once $rootDir . '/app/models/Document.php';
 
-require_once __DIR__ . '/../app/controllers/AuthController.php';
-require_once __DIR__ . '/../app/controllers/ProfileController.php';
-require_once __DIR__ . '/../app/controllers/CompanyController.php';
-require_once __DIR__ . '/../app/controllers/WarehouseController.php';
-require_once __DIR__ . '/../app/controllers/ProductController.php';
-require_once __DIR__ . '/../app/controllers/PosController.php';
-require_once __DIR__ . '/../app/controllers/JournalController.php';
+require_once $rootDir . '/app/controllers/AuthController.php';
+require_once $rootDir . '/app/controllers/ProfileController.php';
+require_once $rootDir . '/app/controllers/CompanyController.php';
+require_once $rootDir . '/app/controllers/WarehouseController.php';
+require_once $rootDir . '/app/controllers/ProductController.php';
+require_once $rootDir . '/app/controllers/PosController.php';
+require_once $rootDir . '/app/controllers/JournalController.php';
 
-require_once __DIR__ . '/../vendor/bramus/Router.php';
+require_once $rootDir . '/vendor/bramus/Router.php';
 
 use Bramus\Router\Router;
 
 $router = new Router();
+$basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
+if ($basePath !== '' && $basePath !== '.' && strpos($_SERVER['REQUEST_URI'], $basePath) === 0) {
+    $adjustedUri = substr($_SERVER['REQUEST_URI'], strlen($basePath));
+    $_SERVER['REQUEST_URI'] = $adjustedUri === '' ? '/' : $adjustedUri;
+}
 
 $router->get('/', function () {
     if (current_user()) {
         redirect('/profile');
     }
     redirect('/login');
+});
+
+$router->get('/health', function () {
+    echo 'OK';
 });
 
 $router->get('/login', array('AuthController', 'showLogin'));
